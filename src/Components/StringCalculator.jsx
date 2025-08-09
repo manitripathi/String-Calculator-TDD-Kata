@@ -1,4 +1,12 @@
+import { useState } from "react";
+
 const StringCalculator = () => {
+  const [result, setResult] = useState(null);
+
+  const handleCalculate = () => {
+    setResult(0);
+  };
+
   return (
     <div>
       <input
@@ -8,7 +16,10 @@ const StringCalculator = () => {
         name="input"
       />
       <br /> <br />
-      <button type="button">Calculate</button>
+      <button type="button" onClick={handleCalculate}>
+        Calculate
+      </button>
+      <p data-testid="result">{result}</p>
     </div>
   );
 };
