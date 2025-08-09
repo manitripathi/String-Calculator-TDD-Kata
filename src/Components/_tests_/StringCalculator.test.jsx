@@ -41,4 +41,16 @@ describe("String Calculator Component", () => {
     fireEvent.click(button);
     expect(screen.getByText(6)).toBeInTheDocument();
   });
+
+  test('allow add method to handle new lines between numbers -> give input "1\n2,3" & returns output 6', () => {
+    render(<StringCalculator />);
+    const input = screen.getByTestId("input-field");
+    const button = screen.getByRole("button", { name: "Calculate" });
+
+    fireEvent.change(input, {
+      target: { value: "1\n2,3" },
+    });
+    fireEvent.click(button);
+    expect(screen.getByText(6)).toBeInTheDocument();
+  });
 });
