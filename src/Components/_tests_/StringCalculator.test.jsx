@@ -71,4 +71,16 @@ describe("String Calculator Component", () => {
       screen.getByText("negative numbers not allowed -1,-2")
     ).toBeInTheDocument();
   });
+
+  test("support diff delimiters --> input is //;\n1;2 & return output should be 3", () => {
+    render(<StringCalculator />);
+    const input = screen.getByTestId("input-field");
+    const button = screen.getByRole("button", { name: "Calculate" });
+
+    fireEvent.change(input, {
+      target: { value: "//;\n1;2" },
+    });
+    fireEvent.click(button);
+    expect(screen.getByText(3)).toBeInTheDocument();
+  });
 });
