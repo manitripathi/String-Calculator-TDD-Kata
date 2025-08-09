@@ -3,6 +3,7 @@ import { useState } from "react";
 const StringCalculator = () => {
   const [result, setResult] = useState(null);
   const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
   const handleInputField = (e) => {
     setInput(e.target.value);
@@ -10,12 +11,24 @@ const StringCalculator = () => {
 
   const addFn = () => {
     const splitNum = input.split(/,|\n|\\n/);
+
+    const negativeNum = splitNum.filter((num) => Number(num) < 0);
+    if (negativeNum.length > 0) {
+      throw new Error(`negative numbers not allowed ${negativeNum}`);
+    }
+
     return splitNum.reduce((acc, curr) => Number(acc) + Number(curr), 0);
   };
 
   const handleCalculate = () => {
-    const value = addFn();
-    setResult(value);
+    try {
+      const value = addFn();
+      setResult(value);
+      setError("");
+    } catch (err) {
+      setResult(null);
+      setError(err.message);
+    }
   };
 
   return (
@@ -33,6 +46,7 @@ const StringCalculator = () => {
         Calculate
       </button>
       <p data-testid="result">{result}</p>
+      {error && <p>{error}</p>}
     </div>
   );
 };
