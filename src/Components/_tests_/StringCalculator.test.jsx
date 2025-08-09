@@ -29,4 +29,16 @@ describe("String Calculator Component", () => {
     fireEvent.click(button);
     expect(screen.getByText(1)).toBeInTheDocument();
   });
+
+  test('give input "1,5" & returns output 6', () => {
+    render(<StringCalculator />);
+    const input = screen.getByTestId("input-field");
+    const button = screen.getByRole("button", { name: "Calculate" });
+
+    fireEvent.change(input, {
+      target: { value: "1,5" },
+    });
+    fireEvent.click(button);
+    expect(screen.getByText(6)).toBeInTheDocument();
+  });
 });
