@@ -57,4 +57,18 @@ describe("String Calculator Component", () => {
     fireEvent.click(button);
     expect(screen.getByText(6)).toBeInTheDocument();
   });
+
+  test('negative number will throw an exception: "negative numbers not allowed <negative_number>', () => {
+    render(<StringCalculator />);
+    const input = screen.getByTestId("input-field");
+    const button = screen.getByRole("button", { name: "Calculate" });
+
+    fireEvent.change(input, {
+      target: { value: "-1,-2" },
+    });
+    fireEvent.click(button);
+    expect(
+      screen.getByText("negative numbers not allowed -1,-2")
+    ).toBeInTheDocument();
+  });
 });
