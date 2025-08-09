@@ -10,7 +10,18 @@ const StringCalculator = () => {
   };
 
   const addFn = () => {
-    const splitNum = input.split(/,|\n|\\n/);
+    let inputPart = input.replace(/\\n/g, "\n");
+    let delimiter = /,|\n/;
+    const customDelimiterMatch = inputPart.match(/^\/\/(.)(?:\n)?/);
+
+    if (customDelimiterMatch) {
+      delimiter = new RegExp(`\\${customDelimiterMatch[1]}`);
+      inputPart = inputPart.replace(/^\/\/(.)(?:\n)?/, "");
+    }
+
+    const splitNum = customDelimiterMatch
+      ? inputPart.split(delimiter)
+      : inputPart.split(/,|\n|\\n/);
 
     const negativeNum = splitNum.filter((num) => Number(num) < 0);
     if (negativeNum.length > 0) {
