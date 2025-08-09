@@ -27,7 +27,11 @@ describe("String Calculator Component", () => {
       target: { value: "1" },
     });
     fireEvent.click(button);
-    expect(screen.getByText(1)).toBeInTheDocument();
+    expect(
+      screen.getByTestId("result", {
+        target: { value: 1 },
+      })
+    ).toBeInTheDocument();
   });
 
   test('give input "1,5" & returns output 6', () => {

@@ -9,7 +9,7 @@ const StringCalculator = () => {
   };
 
   const addFn = () => {
-    const splitNum = input.split(",");
+    const splitNum = input.split(/,|\n|\\n/);
     return splitNum.reduce((acc, curr) => Number(acc) + Number(curr), 0);
   };
 
@@ -20,7 +20,7 @@ const StringCalculator = () => {
 
   return (
     <div>
-      <input
+      <textarea
         type="text"
         placeholder="enter numbers"
         data-testid="input-field"
