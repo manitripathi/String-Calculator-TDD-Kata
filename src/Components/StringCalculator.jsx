@@ -8,8 +8,14 @@ const StringCalculator = () => {
     setInput(e.target.value);
   };
 
+  const addFn = () => {
+    const splitNum = input.split(",");
+    return splitNum.reduce((acc, curr) => Number(acc) + Number(curr), 0);
+  };
+
   const handleCalculate = () => {
-    setResult(Number(input));
+    const value = addFn();
+    setResult(value);
   };
 
   return (
