@@ -4,7 +4,7 @@ import StringCalculator from "../StringCalculator";
 describe("String Calculator Component", () => {
   test("renders input text & calculate button", () => {
     render(<StringCalculator />);
-    expect(screen.getByPlaceholderText(/enter numbers/i)).toBeInTheDocument();
+    expect(screen.getByTestId("input-field")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Calculate/i })
     ).toBeInTheDocument();
@@ -16,5 +16,17 @@ describe("String Calculator Component", () => {
 
     fireEvent.click(button);
     expect(screen.getByText(0)).toBeInTheDocument();
+  });
+
+  test('give input "1" & return output as 1', () => {
+    render(<StringCalculator />);
+    const input = screen.getByTestId("input-field");
+    const button = screen.getByRole("button", { name: "Calculate" });
+
+    fireEvent.change(input, {
+      target: { value: "1" },
+    });
+    fireEvent.click(button);
+    expect(screen.getByText(1)).toBeInTheDocument();
   });
 });
